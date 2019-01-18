@@ -422,14 +422,11 @@ export class DeepLinker {
     }
 
     // ok, so we don't know about a view that they're navigating to
-    // so we might as well just call setRoot and make tthe view the first view
-    // this seems like the least bad option
-    return navController.setRoot(segment.component || segment.name, segment.data, {
+    // so we load them as if the app would be starting from the begin
+    return this.initViews(segment).then(views => navController.setPages(views, {
       id: segment.id, animate: false, updateUrl: false
-    }, done);
-
+    }, done));
   }
-
 }
 
 
